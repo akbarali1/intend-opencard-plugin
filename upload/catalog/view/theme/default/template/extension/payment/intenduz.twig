@@ -1,4 +1,7 @@
 <form action="{{ action }}" method="POST">
+    <input type="hidden" name="api_key" value="{{ api_key }}">
+    <input type="hidden" name="order_id" value="{{ order_id }}">
+    <input type="hidden" name="redirect_url" value="{{ redirect_url }}index.php?route=account/order/info&order_id={{ order_id }}">
     <label for="duration">{{ entry_duration }}</label>
     <select name="duration" class="form-control" id="duration">
         <option>3</option>
@@ -6,14 +9,11 @@
         <option>12</option>
     </select>
     {% for product in orders %}
-        <input type="hidden" name="products[{{ loop.index }}]['name']" value="{{ product['name'] }}">
-        <input type="hidden" name="products[{{ loop.index }}]['price']" value="{{ product['price'] }}">
-        <input type="hidden" name="products[{{ loop.index }}]['quantity']" value="{{ product['quantity'] }}">
-        <input type="hidden" name="products[{{ loop.index }}]['id']" value="{{ product['id'] }}">
+        <input type="hidden" name="products[{{ loop.index }}][id]" value="{{ product['id'] }}">
+        <input type="hidden" name="products[{{ loop.index }}][name]" value="{{ product['name'] }}">
+        <input type="hidden" name="products[{{ loop.index }}][quantity]" value="{{ product['quantity'] }}">
+        <input type="hidden" name="products[{{ loop.index }}][price]" value="{{ product['price'] }}">
     {% endfor %}
-    <input type="hidden" name="order_id" value="{{ order_id }}">
-    <input type="hidden" name="api_key" value="{{ api_key }}">
-    <input type="hidden" name="redirect_url" value="{{ redirect_url }}index.php?route=account/order/info&order_id={{ order_id }}">
     <div class="buttons pull-right">
         <button class="intend_button btn btn-primary">
             <img src="https://intend.uz/wp-content/themes/itrust/favicon/apple-icon-57x57.png" alt="" width="30">
