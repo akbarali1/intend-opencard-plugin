@@ -12,7 +12,7 @@
         <input type="hidden" name="products[{{ loop.index }}][id]" value="{{ product['id'] }}">
         <input type="hidden" name="products[{{ loop.index }}][name]" value="{{ product['name'] }}">
         <input type="hidden" name="products[{{ loop.index }}][quantity]" value="{{ product['quantity'] }}">
-        <input type="hidden" name="products[{{ loop.index }}][price]" value="{{ product['price'] }}">
+        <input type="hidden" name="products[{{ loop.index }}][price]" value="{{ product['price']|number_format(0, '.', '') }}">
     {% endfor %}
     <div class="buttons pull-right">
         <button class="intend_button btn btn-primary">
