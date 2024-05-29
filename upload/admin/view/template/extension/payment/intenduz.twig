@@ -3,8 +3,10 @@
     <div class="page-header">
         <div class="container-fluid">
             <div class="pull-right">
-                <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+                <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}"
+                        class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i
+                            class="fa fa-reply"></i></a></div>
             <h1>{{ heading_title }}</h1>
             <ul class="breadcrumb">
                 {% for breadcrumb in breadcrumbs %}
@@ -16,7 +18,8 @@
     <div class="container-fluid">
 
         {% if error_warning %}
-            <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+            <div class="alert alert-danger alert-dismissible"><i
+                        class="fa fa-exclamation-circle"></i> {{ error_warning }}
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
         {% endif %}
@@ -26,42 +29,30 @@
                 <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
             </div>
             <div class="panel-body">
-                <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+                <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment"
+                      class="form-horizontal">
+
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-account">{{ entry_merchant_id }}</label>
+                        <label class="col-sm-2 control-label" for="input-secret">{{ entry_payment_intenduz_api_key }}</label>
                         <div class="col-sm-10">
-                            <input type="text" name="payment_intenduz_merchant_id" value="{{ payment_intenduz_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="input-payment_intenduz_merchant_id" class="form-control"/>
-                            {% if error_merchant_id %}
-                                <div class="text-danger">{{ error_merchant_id }}</div>
+                            <input type="text" name="payment_intenduz_api_key"
+                                   value="{{ payment_intenduz_api_key }}"
+                                   placeholder="{{ payment_intenduz_api_key }}" id="payment_intenduz_api_key"
+                                   class="form-control"/>
+                            {% if error_api_key %}
+                                <div class="text-danger">{{ error_api_key }}</div>
                             {% endif %}
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-secret">{{ entry_merchant_user_id }}</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="payment_intenduz_merchant_user_id" value="{{ payment_intenduz_merchant_user_id }}" placeholder="{{ entry_merchant_user_id }}" id="input-merchant_user_id" class="form-control"/>
-                            {% if error_merchant_user_id %}
-                                <div class="text-danger">{{ error_merchant_user_id }}</div>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-secret">{{ entry_service_id }}</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="payment_intenduz_service_id" value="{{ payment_intenduz_service_id }}" placeholder="{{ entry_service_id }}" id="input-service_id" class="form-control"/>
-                            {% if error_service_id %}
-                                <div class="text-danger">{{ error_service_id }}</div>
-                            {% endif %}
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input-secret">{{ entry_secret_key }}</label>
                         <div class="col-sm-10">
-                            <input type="text" name="payment_intenduz_secret_key" value="{{ payment_intenduz_secret_key }}" placeholder="{{ entry_secret_key }}" id="input-secret_key" class="form-control"/>
+                            <input type="text" name="payment_intenduz_secret_key"
+                                   value="{{ payment_intenduz_secret_key }}" placeholder="{{ entry_secret_key }}"
+                                   id="input-secret_key" class="form-control"/>
                             {% if error_secret_key %}
                                 <div class="text-danger">{{ error_secret_key }}</div>
                             {% endif %}
@@ -70,33 +61,15 @@
 
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-secret">{{ entry_payment_method }}</label>
+                        <label class="col-sm-2 control-label"
+                               for="input-order-status">{{ entry_after_payment_status }}</label>
                         <div class="col-sm-10">
-                            {% if  payment_intenduz_method == 'only_card' %}
-                                <div class="radio">
-                                    <label><input type="radio" name="payment_intenduz_method" value="only_card" checked="checked"/> {{ entry_only_card }} </label>
-                                </div>
-                                <div class="radio">
-                                    <label><input type="radio" name="payment_intenduz_method" value="invoicing"/> {{ entry_invoicing }} </label>
-                                </div>
-                            {% else %}
-                                <div class="radio">
-                                    <label><input type="radio" name="payment_intenduz_method" value="only_card"/> {{ entry_only_card }} </label>
-                                </div>
-                                <div class="radio">
-                                    <label><input type="radio" name="payment_intenduz_method" value="invoicing" checked="checked"/> {{ entry_invoicing }} </label>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-order-status">{{ entry_after_payment_status }}</label>
-                        <div class="col-sm-10">
-                            <select name="payment_intenduz_order_status_id" id="input-order-status" class="form-control">
+                            <select name="payment_intenduz_order_status_id" id="input-order-status"
+                                    class="form-control">
                                 {% for order_status in order_statuses %}
                                     {% if order_status.order_status_id == payment_intenduz_order_status_id %}
-                                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                                        <option value="{{ order_status.order_status_id }}"
+                                                selected="selected">{{ order_status.name }}</option>
                                     {% else %}
                                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
                                     {% endif %}
@@ -123,27 +96,18 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
                         <div class="col-sm-10">
-                            <input type="text" name="payment_intenduz_sort_order" value="{{ payment_intenduz_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+                            <input type="text" name="payment_intenduz_sort_order"
+                                   value="{{ payment_intenduz_sort_order }}" placeholder="{{ entry_sort_order }}"
+                                   id="input-sort-order" class="form-control"/>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-status">{{ entry_prepare_url }}</label>
-                        <div class="col-sm-10">
-              <span class="form-control">
-                {{ payment_intenduz_prepare_url }}
-              </span>
-                            <small class="form-text text-muted">{{ entry_prepare_url_help }}</small>
-                        </div>
-                    </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input-status">{{ entry_complete_url }}</label>
                         <div class="col-sm-10">
                <span class="form-control">
-                {{ payment_intenduz_complete_url }}
+                {{ payment_intenduz_callback_url }}
               </span>
-                            <small class="form-text text-muted">{{ entry_complete_url_help }}</small>
+                            <small class="form-text text-muted">{{ payment_intenduz_callback_url }}</small>
                         </div>
                     </div>
 
