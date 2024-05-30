@@ -1,12 +1,21 @@
 {{ header }}{{ column_left }}
+
 <div id="content">
+    <style>
+        .required:after {
+            content: '*';
+            color: red;
+            margin-left: 5px;
+        }
+    </style>
     <div class="page-header">
         <div class="container-fluid">
             <div class="pull-right">
-                <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}"
-                        class="btn btn-primary"><i class="fa fa-save"></i></button>
-                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i
-                            class="fa fa-reply"></i></a></div>
+                <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default">
+                    <i class="fa fa-reply"></i>
+                </a>
+            </div>
             <h1>{{ heading_title }}</h1>
             <ul class="breadcrumb">
                 {% for breadcrumb in breadcrumbs %}
@@ -18,8 +27,8 @@
     <div class="container-fluid">
 
         {% if error_warning %}
-            <div class="alert alert-danger alert-dismissible"><i
-                        class="fa fa-exclamation-circle"></i> {{ error_warning }}
+            <div class="alert alert-danger alert-dismissible">
+                <i class="fa fa-exclamation-circle"></i> {{ error_warning }}
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
         {% endif %}
@@ -31,16 +40,14 @@
             <div class="panel-body">
                 <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="payment_intenduz_api_key">{{ entry_payment_intenduz_api_key }}</label>
+                        <label class="col-sm-2 control-label required" for="payment_intenduz_api_key">{{ entry_payment_intenduz_api_key }}</label>
                         <div class="col-sm-10">
-                            <input type="text" name="payment_intenduz_api_key" id="payment_intenduz_api_key"
-                                   value="{{ payment_intenduz_api_key }}" placeholder="{{ payment_intenduz_api_key }}" class="form-control"/>
+                            <input type="text" name="payment_intenduz_api_key" id="payment_intenduz_api_key" value="{{ payment_intenduz_api_key }}" placeholder="{{ payment_intenduz_api_key }}" class="form-control"/>
                             {% if error_api_key %}
                                 <div class="text-danger">{{ error_api_key }}</div>
                             {% endif %}
                         </div>
                     </div>
-
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input_secret_key">{{ entry_secret_key }}</label>
@@ -54,15 +61,28 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-status">{{ entry_payment_intenduz_callback_url }}</label>
+                        <div class="col-sm-10">
+                            <div style="float: left; padding: 40px 40px 0px 40px;font-size: 24px;color: #fff; background-color: #29917a;    width: 100%;">
+                                <div style="display: flex; justify-content: space-between">
+                                    <div id="myInput">{{ payment_intenduz_callback_url }}</div>
+                                    <button type="button" onclick="copyText()" id="copy_button"><i class="fa fa-copy" style="color: #29917a"></i></button>
+                                </div>
+                                <p class="description" style="margin-top: 40px; color: #555;font-size: 14px;">
+                                    {{ entry_payment_intenduz_callback_url_info }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-2 control-label"
                                for="input-order-status">{{ entry_after_payment_status }}</label>
                         <div class="col-sm-10">
-                            <select name="payment_intenduz_order_status_id" id="input-order-status"
-                                    class="form-control">
+                            <select name="payment_intenduz_order_status_id" id="input-order-status" class="form-control">
                                 {% for order_status in order_statuses %}
                                     {% if order_status.order_status_id == payment_intenduz_order_status_id %}
-                                        <option value="{{ order_status.order_status_id }}"
-                                                selected="selected">{{ order_status.name }}</option>
+                                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                                     {% else %}
                                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
                                     {% endif %}
@@ -93,21 +113,8 @@
                                    placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label"
-                               for="input-status">{{ entry_payment_intenduz_callback_url }}</label>
-                        <div class="col-sm-10">
-                            <div style="float: left; padding: 40px 40px 0px 40px;font-size: 24px;color: #fff; background-color: #29917a;    width: 100%;">
-                                <div style="display: flex; justify-content: space-between">
-                                    <div id="myInput">{{ payment_intenduz_callback_url }}</div>
-                                    <button type="button" onclick="copyText()"><i class="fa fa-copy" style="color: #29917a"></i></button>
-                                </div>
-                                <p class="description" style="margin-top: 40px; color: #fff;font-size: 14px;">
-                                    {{ entry_payment_intenduz_callback_url }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+
+
                 </form>
             </div>
         </div>
@@ -118,5 +125,10 @@
     function copyText() {
         let copyText = document.getElementById("myInput");
         navigator.clipboard.writeText(copyText.textContent);
+        let copyButton       = document.getElementById("copy_button");
+        copyButton.innerHTML = '<i class="fa fa-check" style="color: #29917a"></i>';
+        setTimeout(() => {
+            copyButton.innerHTML = '<i class="fa fa-copy" style="color: #29917a"></i>';
+        }, 3000);
     }
 </script>
