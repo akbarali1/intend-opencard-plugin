@@ -44,7 +44,8 @@ class ControllerExtensionPaymentIntenduz extends Controller
 			'href' => $this->url->link('extension/payment/intenduz', 'user_token='.$this->session->data['user_token'], true),
 		];
 		
-		$data['entry_payment_intenduz_api_key'] = $this->language->get('entry_payment_intenduz_api_key');
+		$data['entry_payment_intenduz_api_key']      = $this->language->get('entry_payment_intenduz_api_key');
+		$data['entry_payment_intenduz_callback_url'] = $this->language->get('entry_payment_intenduz_callback_url');
 		
 		$data['error_api_key'] = isset($this->error['error_api_key']) ? $this->error['error_api_key'] : '';
 		
@@ -76,7 +77,7 @@ class ControllerExtensionPaymentIntenduz extends Controller
 			
 		}
 		
-		$data['payment_intenduz_callback_url'] = str_replace('/admin/', '/', $this->url->link('extension/payment/intenduz/complete'));
+		$data['payment_intenduz_callback_url'] = str_replace('/admin/', '/', $this->url->link('extension/payment/intenduz/prepare'));
 		
 		$data['header']      = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
@@ -93,10 +94,6 @@ class ControllerExtensionPaymentIntenduz extends Controller
 		
 		if (!$this->request->post['payment_intenduz_api_key']) {
 			$this->error['error_api_key'] = $this->language->get('error_api_key');
-		}
-		
-		if (!$this->request->post['payment_intenduz_secret_key']) {
-			$this->error['secret_key'] = $this->language->get('error_secret_key');
 		}
 		
 		return !$this->error;

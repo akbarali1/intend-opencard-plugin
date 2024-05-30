@@ -22,10 +22,11 @@ $_['entry_payment_method']           = 'Payment form appearance';
 $_['entry_only_card']                = 'Without redirecting to payment page';
 $_['entry_invoicing']                = 'Use payment page';
 
-$_['entry_prepare_url']       = 'Prepare url';
-$_['entry_prepare_url_help']  = 'This url used for callbacks from Intend to your site, please set this url to "Prepare Url" field at your merchant cabinet at ';
-$_['entry_complete_url']      = 'Complete url';
-$_['entry_complete_url_help'] = 'This url used for callbacks from Intend to your site, please set this url to "Complete Url" field at your merchant cabinet at';
+$_['entry_prepare_url']                   = 'Prepare url';
+$_['entry_prepare_url_help']              = 'This url used for callbacks from Intend to your site, please set this url to "Prepare Url" field at your merchant cabinet at ';
+$_['entry_complete_url']                  = 'Complete url';
+$_['entry_payment_intenduz_callback_url'] = 'Callback Url';
+$_['entry_complete_url_help']             = 'This url used for callbacks from Intend to your site, please set this url to "Complete Url" field at your merchant cabinet at';
 
 
 // Error
