@@ -93,6 +93,7 @@ class ControllerExtensionPaymentIntenduz extends Controller
         ]));
     }
 
+
     public function pluginInfo()
     {
         $this->response->addHeader('Content-Type: application/json');
