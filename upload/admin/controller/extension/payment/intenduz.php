@@ -3,6 +3,7 @@
 class ControllerExtensionPaymentIntenduz extends Controller
 {
     private $error = [];
+    private $opencart_last_version = "https://raw.githubusercontent.com/akbarali1/intend-opencard-plugin/main/install.xml";
 
     public function index()
     {
@@ -17,7 +18,7 @@ class ControllerExtensionPaymentIntenduz extends Controller
         $this->load->model('setting/setting');
         $this->load->model('setting/modification');
         $version = $this->model_setting_modification->getModificationByCode('INTEND')['version'];
-        $lastVersion =  simplexml_load_file("https://raw.githubusercontent.com/akbarali1/intend-opencard-plugin/main/install.xml")->version;
+        $lastVersion =  simplexml_load_file($this->opencart_last_version)->version;
         $data['exist_new_version'] = $lastVersion == $version;
         $data['message_new_version'] = $this->language->get('message_new_version');
 
