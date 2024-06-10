@@ -127,11 +127,11 @@ class ControllerExtensionPaymentIntenduz extends Controller
             ];
         }
         return $this->response->setOutput(json_encode([
+            "version" => $version,
             "pluginStatus" => $this->config->get('payment_intenduz_status') ? true : false,
+            "callBackUrl" => $this->url->link("/index.php?route=extension/payment/intenduz/prepare"),
             "apiKey" => $apiKeyBody,
             "secretKey" => $secretKeyBody,
-            "callBackUrl" => $this->url->link("/index.php?route=extension/payment/intenduz/prepare"),
-            "version" => $version,
         ]));
     }
 }
