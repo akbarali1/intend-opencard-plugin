@@ -27,6 +27,7 @@ $_['entry_prepare_url_help']              = 'This url used for callbacks from In
 $_['entry_complete_url']                  = 'Complete url';
 $_['entry_payment_intenduz_callback_url'] = 'Callback Url';
 $_['entry_complete_url_help']             = 'This url used for callbacks from Intend to your site, please set this url to "Complete Url" field at your merchant cabinet at';
+$_['message_new_version']                  = "There is a new version of the plugin. Contact the developers and install the new version";
 
 
 // Error
